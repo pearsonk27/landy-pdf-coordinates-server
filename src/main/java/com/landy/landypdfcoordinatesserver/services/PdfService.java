@@ -28,7 +28,7 @@ public class PdfService {
     }
 
     public Pdf getPdf(int id) {
-        return pdfRepository.findById(id).get();
+        return pdfRepository.getReferenceById(id);
     }
 
     public Page<Pdf> getAllPdfs(Pageable pageable) {
