@@ -1,7 +1,8 @@
 package com.landy.landypdfcoordinatesserver.services;
 
 import java.io.IOException;
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -30,7 +31,7 @@ public class PdfService {
         return pdfRepository.findById(id).get();
     }
 
-    public List<Pdf> getAllPdfs() {
-        return pdfRepository.findAll();
+    public Page<Pdf> getAllPdfs(Pageable pageable) {
+        return pdfRepository.findAll(pageable);
     }
 }

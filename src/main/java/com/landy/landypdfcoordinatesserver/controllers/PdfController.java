@@ -1,7 +1,14 @@
 package com.landy.landypdfcoordinatesserver.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.domain.Sort.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -39,8 +46,28 @@ public class PdfController {
     }
 
     @GetMapping("pdfs")
-    public ResponseEntity<List<Pdf>> getPdfs() {
-        return ResponseEntity.status(HttpStatus.OK).body(pdfService.getAllPdfs());
+    public ResponseEntity<Page<Pdf>> getPdfs(@RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "6") int size,
+            @RequestParam(defaultValue = "id,desc") String[] sort) {
+        try {
+            List<Order> orders = new ArrayList<Order>();
+
+            if (sort[0].contains(",")) {
+                // will sort more than 2 fields
+                // sortOrder="field, direction"
+                for (String sortOrder : sort) {
+                String[] _sort = sortOrder.split(",");
+                orders.add(new Order(Direction.fromString(_sort[1]), _sort[0]));
+                }
+            } else {
+                // sort=[field, direction]
+                orders.add(new Order(Direction.fromString(sort[1]), sort[0]));
+            }
+            Pageable pageable = PageRequest.of(page, size, Sort.by(orders));
+            return ResponseEntity.status(HttpStatus.OK).body(pdfService.getAllPdfs(pageable));
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @GetMapping("pdfs/{id}")
