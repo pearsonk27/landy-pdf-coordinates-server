@@ -26,7 +26,7 @@ public class Pdf {
     private String name;
 
     @OneToMany(targetEntity = Coordinate.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "session_id", referencedColumnName = "id")
+    @JoinColumn(name = "pdf_id", referencedColumnName = "id")
     private List<Coordinate> coordinates;
 
     @Lob

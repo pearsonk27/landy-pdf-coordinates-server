@@ -22,7 +22,7 @@ public class Coordinate {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "pdf_id", insertable = false, updatable = false, foreignKey = @ForeignKey(name = "coordinate_pdf_id_fkey"))
+    @JoinColumn(name = "pdf_id", foreignKey = @ForeignKey(name = "coordinate_pdf_id_fkey"))
     private Pdf pdf;
 
     private int x;
