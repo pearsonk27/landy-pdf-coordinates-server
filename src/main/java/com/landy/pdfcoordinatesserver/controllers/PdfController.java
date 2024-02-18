@@ -1,4 +1,4 @@
-package com.landy.landypdfcoordinatesserver.controllers;
+package com.landy.pdfcoordinatesserver.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.landy.landypdfcoordinatesserver.objects.Pdf;
-import com.landy.landypdfcoordinatesserver.services.PdfService;
+import com.landy.pdfcoordinatesserver.objects.Pdf;
+import com.landy.pdfcoordinatesserver.services.PdfService;
 
 import lombok.extern.slf4j.Slf4j;
 

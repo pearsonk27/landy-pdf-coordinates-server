@@ -1,4 +1,4 @@
-package com.landy.landypdfcoordinatesserver.objects;
+package com.landy.pdfcoordinatesserver.objects;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,10 +1,10 @@
-package com.landy.landypdfcoordinatesserver.services;
+package com.landy.pdfcoordinatesserver.services;
 
 import org.springframework.stereotype.Service;
 
-import com.landy.landypdfcoordinatesserver.objects.Coordinate;
-import com.landy.landypdfcoordinatesserver.objects.RestCoordinate;
-import com.landy.landypdfcoordinatesserver.repositories.CoordinateRepository;
+import com.landy.pdfcoordinatesserver.objects.Coordinate;
+import com.landy.pdfcoordinatesserver.objects.RestCoordinate;
+import com.landy.pdfcoordinatesserver.repositories.CoordinateRepository;
 
 @Service
 public class CoordinateService {

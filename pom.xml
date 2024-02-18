@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.landy</groupId>
-	<artifactId>landy-pdf-coordinates-server</artifactId>
+	<artifactId>pdf-coordinates-server</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>landy-pdf-coordinates-server</name>
-	<description>Demo project for Spring Boot</description>
+	<name>pdf-coordinates-server</name>
+	<description>PDF Coordinates App Backend</description>
 	<properties>
 		<java.version>21</java.version>
 	</properties>

@@ -1,4 +1,4 @@
-package com.landy.landypdfcoordinatesserver.services;
+package com.landy.pdfcoordinatesserver.services;
 
 import java.io.IOException;
 import org.springframework.data.domain.Page;
@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.landy.landypdfcoordinatesserver.objects.Pdf;
-import com.landy.landypdfcoordinatesserver.repositories.PdfRepository;
+import com.landy.pdfcoordinatesserver.objects.Pdf;
+import com.landy.pdfcoordinatesserver.repositories.PdfRepository;
 
 @Service
 public class PdfService {
