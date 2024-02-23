@@ -7,7 +7,7 @@ WORKDIR /app
 ARG app_name="pdf-coordinates-server"
 
 # Copy the application JAR file into the container at /app
-COPY target/landy-pdf-coordinates-server-0.0.1-SNAPSHOT.jar /app/app.jar
+COPY target/pdf-coordinates-server-0.0.1-SNAPSHOT.jar /app/app.jar
 
 # Expose the port that the application will run on
 EXPOSE 8080
