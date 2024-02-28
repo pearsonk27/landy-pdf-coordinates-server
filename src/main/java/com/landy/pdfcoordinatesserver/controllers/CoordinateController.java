@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.landy.pdfcoordinatesserver.objects.Coordinate;
 import com.landy.pdfcoordinatesserver.objects.RestCoordinate;
 import com.landy.pdfcoordinatesserver.repositories.CoordinateRepository;
 import com.landy.pdfcoordinatesserver.services.CoordinateService;
@@ -46,7 +47,8 @@ public class CoordinateController {
     @DeleteMapping("/coordinates/{coordiniteId}")
     public ResponseEntity<RestCoordinate> deleteCoordinate(@PathVariable int coordiniteId) {
         try {
-            RestCoordinate restCoordinate = coordinateService.convertCoordinate(coordinateRepository.getReferenceById(coordiniteId));
+            Coordinate coordinate = coordinateRepository.getReferenceById(coordiniteId);
+            RestCoordinate restCoordinate = coordinateService.convertCoordinate(coordinate);
             coordinateRepository.deleteById(coordiniteId);
             return ResponseEntity.status(HttpStatus.OK).body(restCoordinate);
         } catch (Exception e) {
