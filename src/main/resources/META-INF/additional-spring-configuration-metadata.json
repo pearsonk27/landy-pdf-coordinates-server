@@ -1,0 +1,5 @@
+{"properties": [{
+  "name": "learner.url",
+  "type": "java.lang.String",
+  "description": "URL to be used by Learner Feign. The learner is the microservice that uses the training coordinates to extrapolate the converted coordinates in the PDF."
+}]}

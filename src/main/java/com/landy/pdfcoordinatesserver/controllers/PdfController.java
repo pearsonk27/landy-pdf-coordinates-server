@@ -20,6 +20,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.landy.pdfcoordinatesserver.objects.Pdf;
+import com.landy.pdfcoordinatesserver.objects.RestCoordinate;
+import com.landy.pdfcoordinatesserver.services.CoordinateService;
+import com.landy.pdfcoordinatesserver.services.LearnerService;
 import com.landy.pdfcoordinatesserver.services.PdfService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -29,9 +32,13 @@ import lombok.extern.slf4j.Slf4j;
 public class PdfController {
 
     private PdfService pdfService;
+    private LearnerService learnerService;
+    private CoordinateService coordinateService;
 
-    public PdfController(PdfService pdfService) {
+    public PdfController(PdfService pdfService, LearnerService learnerService, CoordinateService coordinateService) {
         this.pdfService = pdfService;
+        this.learnerService = learnerService;
+        this.coordinateService = coordinateService;
     }
 
     @CrossOrigin
@@ -50,14 +57,14 @@ public class PdfController {
             @RequestParam(defaultValue = "6") int size,
             @RequestParam(defaultValue = "id,desc") String[] sort) {
         try {
-            List<Order> orders = new ArrayList<Order>();
+            List<Order> orders = new ArrayList<>();
 
             if (sort[0].contains(",")) {
                 // will sort more than 2 fields
                 // sortOrder="field, direction"
                 for (String sortOrder : sort) {
-                String[] _sort = sortOrder.split(",");
-                orders.add(new Order(Direction.fromString(_sort[1]), _sort[0]));
+                    String[] _sort = sortOrder.split(",");
+                    orders.add(new Order(Direction.fromString(_sort[1]), _sort[0]));
                 }
             } else {
                 // sort=[field, direction]
@@ -73,5 +80,18 @@ public class PdfController {
     @GetMapping("pdfs/{id}")
     public ResponseEntity<Pdf> getPdf(@PathVariable int id) {
         return ResponseEntity.status(HttpStatus.OK).body(pdfService.getPdf(id));
+    }
+
+    @GetMapping("pdfs/extrapolate/coordinates/{id}")
+    public ResponseEntity<Pdf> getExtrapolatedCoordinatesForPdf(@PathVariable int id) {
+        Pdf pdf = pdfService.getPdf(id);
+        List<RestCoordinate> currentCoordinates = pdf.getCoordinates().stream().map(c -> coordinateService.convertCoordinate(c)).toList();
+        List<RestCoordinate> extrapolatedCoordinates = learnerService.getExtrapolatedCoordinates(currentCoordinates);
+        pdf.setCoordinates(extrapolatedCoordinates.stream().map(c -> coordinateService.convertCoordinate(c)).toList());
+        if (pdf.getId() == 0) {
+            log.warn("PDF ID is not set, setting now");
+            pdf.setId(id);
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(pdfService.save(pdf));
     }
 }

@@ -27,6 +27,10 @@ public class PdfService {
         return pdf;
     }
 
+    public Pdf save(Pdf pdf) {
+        return pdfRepository.save(pdf);
+    }
+
     public Pdf getPdf(int id) {
         return pdfRepository.getReferenceById(id);
     }

@@ -5,9 +5,11 @@ spring:
         username: ${POSTGRES_USERNAME:postgres}
         hikari.auto-commit: false
     jpa.hibernate.ddl-auto: update
+    cloud.openfeign.client.config.feignName.loggerLevel: full
 management:
     endpoint.health.probes.enabled: true
     health:
         livenessState.enabled: true
         readinessState.enabled: true
 server.servlet.context-path: /api
+learner.url: ${LEARNER_SERVICE_HOST:localhost}:${LEARNER_SERVICE_PORT_HTTP:8000}/learner

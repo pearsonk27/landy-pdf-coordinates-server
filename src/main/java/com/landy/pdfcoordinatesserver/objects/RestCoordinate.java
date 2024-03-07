@@ -1,10 +1,8 @@
 package com.landy.pdfcoordinatesserver.objects;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class RestCoordinate {
     private int id;
 
